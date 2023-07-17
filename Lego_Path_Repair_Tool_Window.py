@@ -23,10 +23,14 @@ class Drop_Label(QtWidgets.QLabel):
 	def dropEvent(self,event):
 		""""""
 		data = event.mimeData()
-		fp = data.urls()[0].toString().replace("file:///","").replace("file://","")
+		url = data.urls()[0].toString()
+		fp  = self._get_correct_windows_path(url)
 		scan_and_replace_paths.run_scan_and_replace(fp)
 		fp = os.path.join(fp,"Corrected")
-		os.startfile(fp)
+		try:
+			os.startfile(fp)
+		except:
+			os.startfile(url+"/Corrected")
 		super(Drop_Label,self).dropEvent(event)
 		
 	def dragEnterEvent(self, e):
@@ -35,7 +39,23 @@ class Drop_Label(QtWidgets.QLabel):
 			e.accept()
 		else:
 			e.ignore()
-			
+	#----------------------------------------------------------------------
+	def _get_correct_windows_path(self,url:str):
+		""""""
+		corrected = url
+		if self.is_UNC_Path(url):
+			corrected = corrected.replace("file:","")
+		else:
+			corrected = corrected.replace("file:///", "")
+		return corrected
+	#----------------------------------------------------------------------
+	def is_UNC_Path(self,url:str):
+		""""""
+		if url.startswith("file:///"):
+			return False
+		else:
+			return True
+		
 _UI_Loader.registerCustomWidget(Drop_Label)
 		
 def make_ui(parent=None):
