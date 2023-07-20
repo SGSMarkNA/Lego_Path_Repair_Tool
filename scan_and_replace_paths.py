@@ -14,7 +14,7 @@ def run_scan_and_replace(raw_folder):
 	paths_to_replace = ["//mal-nasuni/Legacy/Marks_CGI/LEGO/_PIPELINE",
 						"/Volumes/legacy/Marks_CGI/LEGO/_PIPELINE",
 						"B:/Marks_CGI/LEGO/_PIPELINE",
-						"//dkafil-tma/Virtual_Solutions_WIP/_PIPELINE"
+						"//dkafil-tma/Virtual_Solutions_WIP/_PIPELINE",
 						"/Volumes/_PIPELINE"]
 
 	path_to_replace_with = "//isln-smb/common/Lego/_PIPELINE"
